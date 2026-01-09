@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖音视频爬虫</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📱 抖音视频爬虫</h1>
+            <div class="status">
+                <span id="status-indicator" class="status-idle">●</span>
+                <span id="status-text">就绪</span>
+            </div>
+        </header>
+
+        <!-- 控制面板 -->
+        <section class="panel">
+            <h2>爬取控制</h2>
+            
+            <div class="form-group">
+                <label>爬取模式:</label>
+                <select id="crawler-type">
+                    <option value="search">关键词搜索</option>
+                    <option value="detail">指定视频</option>
+                    <option value="creator">创作者主页</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="keywords-group">
+                <label>搜索关键词:</label>
+                <input type="text" id="keywords" placeholder="多个关键词用逗号分隔" value="编程,Python">
+            </div>
+
+            <div class="form-group hidden" id="video-urls-group">
+                <label>视频URL:</label>
+                <textarea id="video-urls" placeholder="每行一个URL或ID" rows="3"></textarea>
+            </div>
+
+            <div class="form-group hidden" id="creator-urls-group">
+                <label>创作者URL:</label>
+                <textarea id="creator-urls" placeholder="每行一个URL或ID" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>最大数量:</label>
+                <input type="number" id="max-count" value="15" min="1" max="100">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="enable-media">
+                    下载视频/图片
+                </label>
+            </div>
+
+            <div class="button-group">
+                <button id="start-btn" class="btn btn-primary">开始爬取</button>
+                <button id="stop-btn" class="btn btn-danger" disabled>停止</button>
+                <button id="clear-btn" class="btn btn-secondary">清空数据</button>
+            </div>
+        </section>
+
+        <!-- 数据展示 -->
+        <section class="panel">
+            <div class="panel-header">
+                <h2>数据列表</h2>
+                <div class="tabs">
+                    <button class="tab active" data-tab="videos">视频 (<span id="video-count">0</span>)</button>
+                    <button class="tab" data-tab="creators">创作者 (<span id="creator-count">0</span>)</button>
+                </div>
+            </div>
+
+            <!-- 视频列表 -->
+            <div id="videos-tab" class="tab-content active">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>作者</th>
+                            <th>点赞数</th>
+                            <th>关键词</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videos-tbody">
+                        <tr>
+                            <td colspan="5" class="no-data">暂无数据</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 创作者列表 -->
+            <div id="creators-tab" class="tab-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>昵称</th>
+                            <th>粉丝数</th>
+                            <th>作品数</th>
+                            <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="creators-tbody">
+                        <tr>
+                            <td colspan="4" class="no-data">暂无数据</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
